@@ -5,7 +5,9 @@
  System_Class System = {
 	.BUFF_SIZE = 64
 };
-
+/**
+*@brief 系统初始化
+*/
 void init_system()
 {
 	
@@ -13,7 +15,9 @@ void init_system()
 	System.UART_FLAG = false;
 }
 
-
+/**
+*@brief 处理串口的逻辑
+*/
 void DealWith_UART()
 {
 	if(System.UART_FLAG == true)
