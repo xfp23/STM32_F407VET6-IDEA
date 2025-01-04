@@ -26,10 +26,12 @@
 #include "usart.h"
 #include "usb_otg.h"
 #include "gpio.h"
-#include  "stdio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "System.h"
+#include <stdio.h>
+//#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,6 +64,7 @@ int fputc(int ch, FILE *f)
 
 /* USER CODE BEGIN PV */
 System_Tim_Flag systemTim = {0};
+volatile Encoder_Class_t encoder;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -116,6 +119,7 @@ int main(void)
     HAL_UART_Receive_DMA(&huart1, (uint8_t *)System.UART_buff, System.BUFF_SIZE);
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
   HAL_UART_Receive_IT(&huart1, (uint8_t *)System.UART_buff, System.BUFF_SIZE);
+  encoder_Init(&encoder);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -128,6 +132,7 @@ int main(void)
 	   //HAL_GPIO_WritePin(USER_LED_GPIO_Port,USER_LED_Pin,GPIO_PIN_SET);
 	  if(systemTim.system_1ms == ON)
 	  {
+		  encoderLoop(&encoder);
 		 systemTim.system_1ms = OFF;
 	  }
 	  if(systemTim.system_10ms == ON)
@@ -137,12 +142,13 @@ int main(void)
 	  }
 	  if(systemTim.system_100ms == ON)
 	  {
+		  
 		 systemTim.system_100ms = OFF;
 	  }
 	  if(systemTim.system_500ms == ON)
 	  {
 		  systemTim.system_500ms = OFF;
-		  //HAL_GPIO_TogglePin(USER_LED_GPIO_Port,USER_LED_Pin);
+		  HAL_GPIO_TogglePin(USER_LED_GPIO_Port,USER_LED_Pin);
 		  //HAL_UART_Transmit(&huart1,(uint8_t *)"LED_TRIGGER",15,HAL_MAX_DELAY);
 	  }
     /* USER CODE END WHILE */

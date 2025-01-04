@@ -212,7 +212,10 @@ void EXTI0_IRQHandler(void)
 if(__HAL_GPIO_EXTI_GET_IT(USER_KEY_Pin) != RESET)
 {
 	/* 外部中断函数 */
+	
+	  HAL_GPIO_EXTI_IRQHandler(USER_KEY_Pin);
 }
+
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(USER_KEY_Pin);
   /* USER CODE BEGIN EXTI0_IRQn 1 */
@@ -232,6 +235,32 @@ void USART1_IRQHandler(void)
   /* USER CODE BEGIN USART1_IRQn 1 */
  HAL_UART_RxCpltCallback(&huart1);
   /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+if(__HAL_GPIO_EXTI_GET_IT(ENCODER_A_PIN) != RESET)
+{
+	/* 外部中断函数 */
+	  encoderA_Callback(&encoder);
+	  //HAL_GPIO_EXTI_IRQHandler(ENCODER_A_PIN);
+}
+if(__HAL_GPIO_EXTI_GET_IT(ENCODER_B_PIN) != RESET)
+{
+	/* 外部中断函数 */
+	encoderB_Callback(&encoder);
+	  //HAL_GPIO_EXTI_IRQHandler(ENCODER_B_PIN);
+}
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(ENCODE_A_Pin);
+  HAL_GPIO_EXTI_IRQHandler(ENCODE_B_Pin);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
 /**

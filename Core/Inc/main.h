@@ -32,6 +32,7 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdint.h"
+#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -71,12 +72,19 @@ void Error_Handler(void);
 #define SPI1_CS_GPIO_Port GPIOA
 #define USER_LED_Pin GPIO_PIN_2
 #define USER_LED_GPIO_Port GPIOB
+#define ENCODE_A_Pin GPIO_PIN_10
+#define ENCODE_A_GPIO_Port GPIOB
+#define ENCODE_A_EXTI_IRQn EXTI15_10_IRQn
+#define ENCODE_B_Pin GPIO_PIN_11
+#define ENCODE_B_GPIO_Port GPIOB
+#define ENCODE_B_EXTI_IRQn EXTI15_10_IRQn
 #define SD_CARD_DET_Pin GPIO_PIN_3
 #define SD_CARD_DET_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 extern System_Tim_Flag systemTim;
 extern void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle);
+extern volatile Encoder_Class_t encoder;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
