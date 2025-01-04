@@ -171,7 +171,7 @@
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>encoder</ItemText>
+          <ItemText>encoder,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

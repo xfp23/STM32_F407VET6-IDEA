@@ -21,12 +21,16 @@ void encoder_Init(volatile Encoder_Class_t *encoder)
 */
 void encoderA_Callback(volatile Encoder_Class_t *encoder)
 {
+	static uint8_t count = 0;
+	count++;
 	if(encoder->flag.EN_B == OFF)
 	{
 		encoder->flag.EN_A = ON;
 		
-		if(encoder->value++ >= ENCODER_MAX)
+		
+		if(count % 2 == 0&& encoder->value++ >= ENCODER_MAX)
 		{
+			count = 0;
 			encoder->value = ENCODER_MAX;
 		}
 	}
@@ -38,11 +42,15 @@ void encoderA_Callback(volatile Encoder_Class_t *encoder)
 */
 void encoderB_Callback(volatile Encoder_Class_t *encoder)
 {
+	static uint8_t count = 0;
+	count++;
 	if(encoder->flag.EN_A == OFF)
 	{
 		encoder->flag.EN_B = ON;
-		if(encoder->value-- <= ENCODER_MAIN)
+		
+		if(count % 2 == 0 && encoder->value-- <= ENCODER_MAIN)
 		{
+			count = 0;
 			encoder->value = ENCODER_MAIN;
 		}
 	}

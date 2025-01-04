@@ -2,8 +2,21 @@
 #define ENCODER_H
 
 /**
-*旋转编码器驱动
-*/
+ * @file encoder.h
+ * @brief 旋转编码器驱动
+ * 
+ * 本文件提供了旋转编码器的驱动接口，用于获取编码器的转动信息。
+ * 编码器A、B引脚配置为无上下拉电阻，双边沿触发模式。
+ * 
+ * @author xfp23 (@github.com/xfp23)
+ * @note 编码器A、B引脚配置为不上下拉，双边沿触发模式。
+ * 
+ * @date 2025-01-04
+ * 
+ * @version 1.0
+ * 
+ * @copyright (c) 2025 xfp23. All rights reserved.
+ */
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -14,8 +27,8 @@ extern "C"
 
 
 
-#define ENCODER_MAX 98 // 编码器最大值
-#define ENCODER_MAIN 0 // 编码器最小值	
+#define ENCODER_MAX 0x62 // 编码器最大值
+#define ENCODER_MAIN 0x00 // 编码器最小值	
 
 #define ENCODER_A_PIN ENCODE_A_Pin // 此处更改A边编码器引脚
 #define ENCODER_B_PIN ENCODE_B_Pin // 此处更改B边编码器引脚
@@ -34,6 +47,10 @@ typedef struct
 typedef struct {
 	encoder_Flag_t flag; // 标志
 	uint16_t value; // 编码器数值
+//	struct {
+//	uint16_t pin;
+//	uint16_t port;
+//	}Private;
 }Encoder_Class_t;
 	
 /**
