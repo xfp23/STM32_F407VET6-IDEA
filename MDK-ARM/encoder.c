@@ -57,11 +57,8 @@ void encoderB_Callback(volatile Encoder_Class_t *encoder)
  */
 void encoderLoop(volatile Encoder_Class_t *encoder)
 {
-	if (HAL_GPIO_ReadPin(ENCODER_A_PORT, ENCODER_A_PIN) == RESET == HAL_GPIO_ReadPin(ENCODER_B_PORT, ENCODER_B_PIN) == RESET)
+	if ((HAL_GPIO_ReadPin(ENCODER_A_PORT, ENCODER_A_PIN) == RESET) == (HAL_GPIO_ReadPin(ENCODER_B_PORT, ENCODER_B_PIN) == RESET))
 	{
-		//		HAL_Delay(20);
-		//		if(HAL_GPIO_ReadPin(ENCODER_A_PORT,ENCODER_A_PIN) == RESET
-		//			&& HAL_GPIO_ReadPin(ENCODER_B_PORT,ENCODER_B_PIN) == RESET)
 		memset((void *)&encoder->flag, 0, sizeof(encoder_Flag_t));
 	}
 }
