@@ -32,8 +32,8 @@ void encoderA_Callback(volatile Encoder_Class_t *encoder)
 	if (encoder->flag.EN_B == OFF)
 	{
 		encoder->flag.EN_A = ON;
-		encoder->value += encoder->Hardware.Amplitude;
-		if (count % 2 == 0 && encoder->value >= encoder->Range.max)
+		
+		if (count % 2 == 0 && (encoder->value += encoder->Hardware.Amplitude) >= encoder->Range.max)
 		{
 			count = 0;
 			encoder->value = encoder->Range.max;
@@ -52,8 +52,8 @@ void encoderB_Callback(volatile Encoder_Class_t *encoder)
 	if (encoder->flag.EN_A == OFF)
 	{
 		encoder->flag.EN_B = ON;
-		encoder->value -= encoder->Hardware.Amplitude;
-		if (count % 2 == 0 && encoder->value <= encoder->Range.min)
+		
+		if (count % 2 == 0 && (encoder->value -= encoder->Hardware.Amplitude) <= encoder->Range.min)
 		{
 			count = 0;
 			encoder->value = encoder->Range.min;

@@ -73,7 +73,7 @@ System_Tim_Flag systemTim = {0};
       .Pin = ENCODE_B_Pin,
       .Port = ENCODE_B_GPIO_Port
   },
-  .Hardware.Amplitude = AMPITUDE_8X,
+  .Hardware.Amplitude = AMPITUDE_1X,
   .Range.max = 200,
   .Range.min = 50,
 };

@@ -13,7 +13,7 @@
  *
  * @date 2025-01-04
  *
- * @version 2.0
+ * @version 2.0.1
  *
  * @copyright (c) 2025 xfp23. All rights reserved.
  */
