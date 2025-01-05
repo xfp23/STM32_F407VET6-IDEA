@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "System.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -243,13 +244,13 @@ void USART1_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-if(__HAL_GPIO_EXTI_GET_IT(ENCODER_A_PIN) != RESET)
+if(__HAL_GPIO_EXTI_GET_IT(encoder.Hardware.A.Pin) != RESET)
 {
 	/* 外部中断函数 */
 	  encoderA_Callback(&encoder);
 	  //HAL_GPIO_EXTI_IRQHandler(ENCODER_A_PIN);
 }
-if(__HAL_GPIO_EXTI_GET_IT(ENCODER_B_PIN) != RESET)
+if(__HAL_GPIO_EXTI_GET_IT(encoder.Hardware.B.Pin) != RESET)
 {
 	/* 外部中断函数 */
 	encoderB_Callback(&encoder);

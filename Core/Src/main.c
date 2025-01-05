@@ -64,7 +64,19 @@ int fputc(int ch, FILE *f)
 
 /* USER CODE BEGIN PV */
 System_Tim_Flag systemTim = {0};
-volatile Encoder_Class_t encoder;
+ Encoder_Class_t encoder = {
+  .Hardware.A = {
+      .Pin = ENCODE_A_Pin,
+      .Port = ENCODE_A_GPIO_Port
+  },
+  .Hardware.B = {
+      .Pin = ENCODE_B_Pin,
+      .Port = ENCODE_B_GPIO_Port
+  },
+  .Hardware.Amplitude = AMPITUDE_8X,
+  .Range.max = 200,
+  .Range.min = 50,
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

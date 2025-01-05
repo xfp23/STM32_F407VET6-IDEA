@@ -82,9 +82,7 @@ void Error_Handler(void);
 #define SD_CARD_DET_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
-extern System_Tim_Flag systemTim;
-extern void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle);
-extern volatile Encoder_Class_t encoder;
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

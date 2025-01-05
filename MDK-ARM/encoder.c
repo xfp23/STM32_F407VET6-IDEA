@@ -1,6 +1,6 @@
 #include "encoder.h"
 #include <string.h>
-#include "main.h"
+// #include "main.h"
 
 #ifndef ON
 #define ON (1)
@@ -10,9 +10,15 @@
 #define OFF (0)
 #endif
 
+/**
+ * @brief 初始化编码器
+ *
+ */
 void encoder_Init(volatile Encoder_Class_t *encoder)
 {
-	memset((void *)encoder, 0, sizeof(Encoder_Class_t)); // 初始化编码器
+	memset((void *)&encoder->flag, 0, sizeof(encoder_Flag_t));
+//	memset((void *)&encoder->value, 0, sizeof(encoder->value));
+	encoder->value = encoder->Range.min;
 }
 
 /**
@@ -22,14 +28,15 @@ void encoderA_Callback(volatile Encoder_Class_t *encoder)
 {
 	static uint8_t count = 0;
 	count++;
+	encoder->flag.Tigger = ON;
 	if (encoder->flag.EN_B == OFF)
 	{
 		encoder->flag.EN_A = ON;
-
-		if (count % 2 == 0 && encoder->value++ >= ENCODER_MAX)
+		encoder->value += encoder->Hardware.Amplitude;
+		if (count % 2 == 0 && encoder->value >= encoder->Range.max)
 		{
 			count = 0;
-			encoder->value = ENCODER_MAX;
+			encoder->value = encoder->Range.max;
 		}
 	}
 }
@@ -41,14 +48,15 @@ void encoderB_Callback(volatile Encoder_Class_t *encoder)
 {
 	static uint8_t count = 0;
 	count++;
+	encoder->flag.Tigger = ON;
 	if (encoder->flag.EN_A == OFF)
 	{
 		encoder->flag.EN_B = ON;
-
-		if (count % 2 == 0 && encoder->value-- <= ENCODER_MAIN)
+		encoder->value -= encoder->Hardware.Amplitude;
+		if (count % 2 == 0 && encoder->value <= encoder->Range.min)
 		{
 			count = 0;
-			encoder->value = ENCODER_MAIN;
+			encoder->value = encoder->Range.min;
 		}
 	}
 }
@@ -57,8 +65,22 @@ void encoderB_Callback(volatile Encoder_Class_t *encoder)
  */
 void encoderLoop(volatile Encoder_Class_t *encoder)
 {
-	if ((HAL_GPIO_ReadPin(ENCODER_A_PORT, ENCODER_A_PIN) == RESET) == (HAL_GPIO_ReadPin(ENCODER_B_PORT, ENCODER_B_PIN) == RESET))
+	uint8_t OK_buff = encoder->flag.EN_OK;
+	uint8_t Tigger_buff = encoder->flag.Tigger;
+	if ((HAL_GPIO_ReadPin(encoder->Hardware.A.Port, encoder->Hardware.A.Pin) == RESET) == (HAL_GPIO_ReadPin(encoder->Hardware.B.Port, encoder->Hardware.B.Pin) == RESET))
 	{
 		memset((void *)&encoder->flag, 0, sizeof(encoder_Flag_t));
+		encoder->flag.EN_OK = OK_buff;		// 还原C脚状态
+		encoder->flag.Tigger = Tigger_buff; // 还原触发状态
 	}
+}
+
+/**
+ * @brief 在C端口中断中回调此函数
+ *
+ * @param encoder
+ */
+void encoderOK_Callback(volatile Encoder_Class_t *encoder)
+{
+	encoder->flag.EN_OK = ON;
 }
