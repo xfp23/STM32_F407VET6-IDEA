@@ -17,7 +17,7 @@
 void encoder_Init(volatile Encoder_Class_t *encoder)
 {
 	memset((void *)&encoder->flag, 0, sizeof(encoder_Flag_t));
-//	memset((void *)&encoder->value, 0, sizeof(encoder->value));
+	//	memset((void *)&encoder->value, 0, sizeof(encoder->value));
 	encoder->value = encoder->Range.min;
 }
 

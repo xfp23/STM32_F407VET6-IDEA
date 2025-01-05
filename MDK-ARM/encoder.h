@@ -59,18 +59,17 @@ extern "C"
 		AMPITUDE_64X = 0X40,
 	} encoder_Amplitude_t; // 编码器增益
 
-
 	typedef struct
 	{
 		struct
 		{
 			const encoder_Hardware_t A; // A边硬件
 			const encoder_Hardware_t B; // B边硬件
-			uint8_t Amplitude;         // 增益
-		} Hardware;					  // 此结构体用于保存编码器的硬件信息，应该在声明的时候就初始化它
-		encoder_Range_t Range;		  // 编码器范围
-		volatile encoder_Flag_t flag; // 标志
-		volatile uint16_t value;	  // 编码器数值
+			uint8_t Amplitude;			// 增益
+		} Hardware;						// 此结构体用于保存编码器的硬件信息，应该在声明的时候就初始化它
+		encoder_Range_t Range;			// 编码器范围
+		volatile encoder_Flag_t flag;	// 标志
+		volatile uint16_t value;		// 编码器数值
 
 	} Encoder_Class_t;
 
