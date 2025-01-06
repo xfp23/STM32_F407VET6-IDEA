@@ -20,12 +20,19 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "main.h" // 根据自己的芯片选型更改HAL头文件
+#include "main.h" 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+#ifndef ENCODER_ON
+#define ENCODER_ON (1)
+#endif
+
+#ifndef ENCODER_OFF
+#define ENCODER_OFF (0)
+#endif
 	typedef struct
 	{
 		GPIO_TypeDef *Port;

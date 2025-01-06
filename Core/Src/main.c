@@ -74,8 +74,8 @@ System_Tim_Flag systemTim = {0};
       .Port = ENCODE_B_GPIO_Port
   },
   .Hardware.Amplitude = AMPITUDE_1X,
-  .Range.max = 200,
-  .Range.min = 50,
+  .Range.max = 98,
+  .Range.min = 0,
 };
 /* USER CODE END PV */
 

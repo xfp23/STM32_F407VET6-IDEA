@@ -2,14 +2,6 @@
 #include <string.h>
 // #include "main.h"
 
-#ifndef ON
-#define ON (1)
-#endif
-
-#ifndef OFF
-#define OFF (0)
-#endif
-
 /**
  * @brief 初始化编码器
  *
@@ -28,10 +20,10 @@ void encoderA_Callback(volatile Encoder_Class_t *encoder)
 {
 	static uint8_t count = 0;
 	count++;
-	encoder->flag.Tigger = ON;
-	if (encoder->flag.EN_B == OFF)
+	encoder->flag.Tigger = ENCODER_ON;
+	if (encoder->flag.EN_B == ENCODER_OFF)
 	{
-		encoder->flag.EN_A = ON;
+		encoder->flag.EN_A = ENCODER_ON;
 		
 		if (count % 2 == 0 && (encoder->value += encoder->Hardware.Amplitude) >= encoder->Range.max)
 		{
@@ -48,10 +40,10 @@ void encoderB_Callback(volatile Encoder_Class_t *encoder)
 {
 	static uint8_t count = 0;
 	count++;
-	encoder->flag.Tigger = ON;
-	if (encoder->flag.EN_A == OFF)
+	encoder->flag.Tigger = ENCODER_ON;
+	if (encoder->flag.EN_A == ENCODER_OFF)
 	{
-		encoder->flag.EN_B = ON;
+		encoder->flag.EN_B = ENCODER_ON;
 		
 		if (count % 2 == 0 && (encoder->value -= encoder->Hardware.Amplitude) <= encoder->Range.min)
 		{
@@ -82,5 +74,5 @@ void encoderLoop(volatile Encoder_Class_t *encoder)
  */
 void encoderOK_Callback(volatile Encoder_Class_t *encoder)
 {
-	encoder->flag.EN_OK = ON;
+	encoder->flag.EN_OK = ENCODER_OFF;
 }
